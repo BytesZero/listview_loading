@@ -2,20 +2,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="55dp"
     tools:context=".MainActivity">
 
 
     <ImageView
         android:layout_width="45dp"
         android:layout_height="45dp"
+        android:layout_centerVertical="true"
         android:id="@+id/main_item_iv_icon"
         android:background="@mipmap/ic_launcher"/>
 
     <TextView
         android:id="@+id/main_item_tv_name"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="55dp"
         android:gravity="center_vertical"
         android:textStyle="bold"
         android:textSize="18sp"

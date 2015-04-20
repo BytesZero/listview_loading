@@ -50,7 +50,7 @@ public class MainActivity extends ActionBarActivity implements AbsListView.OnScr
     private void initData() {
 
         userEnities=new ArrayList<UserEnity>();
-        for (int i=0;i<100000;i++){
+        for (int i=0;i<100;i++){
             String url;
             int num=i%3;
             if (num==2){
@@ -71,36 +71,44 @@ public class MainActivity extends ActionBarActivity implements AbsListView.OnScr
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         switch (scrollState){
-            case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+
+            case AbsListView.OnScrollListener.SCROLL_STATE_IDLE://停止滚动
             {
+                //设置为停止滚动
                 myAdapter.setScrollState(false);
-                int first = view.getFirstVisiblePosition();
+                //当前屏幕中listview的子项的个数
                 int count = view.getChildCount();
+                Log.e("MainActivity",count+"");
+
                 for (int i = 0; i < count; i++) {
+                    //获取到item的name
                     TextView tv_name = (TextView) view.getChildAt(i).findViewById(R.id.main_item_tv_name);
+                    //获取到item的头像
                     ImageView iv_show= (ImageView) view.getChildAt(i).findViewById(R.id.main_item_iv_icon);
 
                     if (tv_name.getTag() != null) { //非null说明需要加载数据
-                        tv_name.setText(userEnities.get((first + i)).getName());
-                        tv_name.setTag(null);
+                        tv_name.setText(tv_name.getTag().toString());//直接从Tag中取出我们存储的数据name并且赋值
+                        tv_name.setTag(null);//设置为已加载过数据
                     }
 
-                    if (!iv_show.getTag().equals("1")){
-                        String image_url=iv_show.getTag().toString();
-                        ImageLoader.getInstance().displayImage(image_url, iv_show);
-                        iv_show.setTag("1");
+                    if (!iv_show.getTag().equals("1")){//!="1"说明需要加载数据
+                        String image_url=iv_show.getTag().toString();//直接从Tag中取出我们存储的数据image——url
+                        ImageLoader.getInstance().displayImage(image_url, iv_show);//显示图片
+                        iv_show.setTag("1");//设置为已加载过数据
                     }
                 }
                 break;
             }
-            case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
+            case AbsListView.OnScrollListener.SCROLL_STATE_FLING://滚动做出了抛的动作
             {
+                //设置为正在滚动
                 myAdapter.setScrollState(true);
                 break;
             }
 
-            case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
+            case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL://正在滚动
             {
+                //设置为正在滚动
                 myAdapter.setScrollState(true);
                 break;
             }
@@ -112,4 +120,6 @@ public class MainActivity extends ActionBarActivity implements AbsListView.OnScr
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
     }
+
+
 }
